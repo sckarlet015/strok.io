@@ -12,8 +12,9 @@ export async function POST(request: NextRequest) {
   let name: string;
 
   // Check if request comes from Capacitor (no Clerk session)
+  const ua = request.headers.get("user-agent") || "";
   const host = request.headers.get("host") || "";
-  const isCapacitor = host.includes("10.0.2.2") || host.includes("capacitor");
+  const isCapacitor = ua.includes("CapacitorApp") || host.includes("10.0.2.2");
 
   if (isCapacitor) {
     // Guest mode for Capacitor

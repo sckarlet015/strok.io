@@ -10,15 +10,14 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 function isCapacitorRequest(request: NextRequest): boolean {
+  const ua = request.headers.get("user-agent") || "";
   const host = request.headers.get("host") || "";
   const origin = request.headers.get("origin") || "";
-  const referer = request.headers.get("referer") || "";
   return (
+    ua.includes("CapacitorApp") ||
     host.includes("10.0.2.2") ||
-    host.includes("capacitor") ||
     origin.includes("10.0.2.2") ||
-    origin.includes("capacitor://") ||
-    referer.includes("10.0.2.2")
+    origin.includes("capacitor://")
   );
 }
 

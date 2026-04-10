@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 function isCapacitorEnv(): boolean {
   if (typeof window === "undefined") return false;
+  // Check user-agent (set via appendUserAgent in capacitor.config.ts)
+  if (navigator.userAgent.includes("CapacitorApp")) return true;
   // Check Capacitor native bridge
   if ((window as unknown as Record<string, unknown>).Capacitor) return true;
   // Check known Capacitor origins

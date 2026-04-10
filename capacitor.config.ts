@@ -1,20 +1,21 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
-// Dev emulador Android: 10.0.2.2 = host machine
-// Dev dispositivo fisico: usa tu IP local (192.168.x.x)
-// Prod: cambia a tu URL de Vercel (e.g. "https://strok.io")
-const serverUrl = process.env.CAP_SERVER_URL || "http://10.0.2.2:3000";
+// Dev emulador Android: CAP_SERVER_URL=http://10.0.2.2:3000
+// Dev dispositivo fisico: CAP_SERVER_URL=http://192.168.x.x:3000
+// Prod: URL de Vercel
+const serverUrl = process.env.CAP_SERVER_URL || "https://strok-io.vercel.app";
 
 const config: CapacitorConfig = {
   appId: "io.strok.app",
   appName: "Strok.io",
   webDir: "out",
   server: {
-    // Native app loads the deployed web app
     url: serverUrl,
-    // Allow cleartext for local dev (http://192.168.x.x:3000)
     cleartext: serverUrl.startsWith("http://"),
+    // Append to user-agent so middleware + client can detect Capacitor
+    androidScheme: "https",
   },
+  appendUserAgent: "CapacitorApp",
   ios: {
     contentInset: "always",
     preferredContentMode: "mobile",
