@@ -259,6 +259,7 @@ export default function Canvas({ roomId }: CanvasProps) {
         transition: "opacity 0.3s",
       }}>
         <Tldraw
+          licenseKey={process.env.NEXT_PUBLIC_TLDRAW_LICENSE_KEY}
           components={components}
           persistenceKey={roomId}
           onMount={handleMount}
@@ -278,6 +279,7 @@ export default function Canvas({ roomId }: CanvasProps) {
         >
           <div style={{ position: "relative", width: "100%", height: "100%", zIndex: 1 }}>
             <Tldraw
+              licenseKey={process.env.NEXT_PUBLIC_TLDRAW_LICENSE_KEY}
               store={privateStore}
               onMount={(editor) => { privateEditorRef.current = editor; }}
             />
